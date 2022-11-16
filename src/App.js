@@ -33,8 +33,12 @@ export default function App() {
       .catch((err) => (err.innerText = err));
     fileNameOutput.innerText = e.target.files[0].name;
   };
+  const onClick = () => {
+    document.getElementById('picker').click();
+  }
   return (
     <div className="App">
+      <button onClick={onClick}>click me</button>
       <input
         hidden
         type="file"
