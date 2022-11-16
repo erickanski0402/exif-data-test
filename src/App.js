@@ -35,7 +35,14 @@ export default function App() {
   };
   return (
     <div className="App">
-      <input type="file" id="picker" onChange={onChange}/>
+      <input
+        hidden
+        type="file"
+        id="picker"
+        accept="image/*"
+        capture={false}
+        onChange={onChange}
+        />
       <div id="fileName"></div>
       <div id="dateTimeOriginal"></div>
       <div id="dateTimeOutput"></div>
