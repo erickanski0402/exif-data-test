@@ -1,14 +1,9 @@
-import React from 'react';
-import ExifReader, { IccTags, Tags, ValueTag, XmpTag, XmpTags } from 'exifreader';
+import {useCallback} from 'react';
+import ExifReader from 'exifreader';
+import {parseDate} from '../../utils/utils.ts';
 
-export default function App() {
-  const parseDate = (s) => {
-    var b = s[0].split(/\D/);
-    var dt = new Date(b[0], b[1] - 1, b[2], b[3], b[4], b[5]);
-    return dt;
-  }
-  var clickedTime = 0;
-  const onChange = (e) => {
+export const useAddPhoto = () => {
+  const addPhoto = useCallback(({e, clickedTime}) => {
     const fileNameOutput = document.getElementById("fileName");
     const pre = document.getElementById("exif");
     const dto = document.getElementById("dateTimeOriginal");
@@ -32,25 +27,10 @@ export default function App() {
       })
       .catch((err) => (err.innerText = err));
     fileNameOutput.innerText = e.target.files[0].name;
-  };
-  const onClick = () => {
-    document.getElementById('picker').click();
+  }, []);
+  return {
+    addPhoto
   }
-  return (
-    <div className="App">
-      <button onClick={onClick}>click me</button>
-      <input
-        hidden
-        type="file"
-        id="picker"
-        accept="image/*"
-        capture={false}
-        onChange={onChange}
-        />
-      <div id="fileName"></div>
-      <div id="dateTimeOriginal"></div>
-      <div id="dateTimeOutput"></div>
-      <pre id="exif">Exif Here</pre>
-    </div>
-  );
 }
+
+export default useAddPhoto;
